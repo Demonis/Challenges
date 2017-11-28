@@ -1,0 +1,12 @@
+name: Challenges
+main: me.demonis.challenges.Main
+author: Demonis
+version: 1.0
+description: Challenges plugin.
+commands:
+  challenge:
+    description: Pour ouvrir le menu des challenges.
+    aliases: [c, challenges]
+  skycoins:
+    description: Pour afficher le nombre de skycoins.
+    aliases: [sc, skycoin]
