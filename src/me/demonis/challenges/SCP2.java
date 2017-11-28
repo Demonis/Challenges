@@ -126,7 +126,7 @@ public class SCP2 extends AbstractMenu{
 									Block blockWest = block.getRelative(BlockFace.WEST);
 									Block blockSouth = block.getRelative(BlockFace.SOUTH);
 									Block blockNorth = block.getRelative(BlockFace.NORTH);
-									if (blockUp.getType() == Material.FENCE) {
+									if (blockUp.getType() == Material.NETHER_FENCE) {
 										if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".sfc12", false)) {
 											event.getWhoClicked().sendMessage(ChatColor.RED + "Tu ne peux pas refaire ce challenge!");
 											// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
