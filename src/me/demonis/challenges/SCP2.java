@@ -70,6 +70,27 @@ public class SCP2 extends AbstractMenu{
 		sfc22Meta.setLore(sfc22Lore);
 		sfc22.setItemMeta(sfc22Meta);
 		gui.setItem(3, sfc22);
+		
+		ItemStack sfc23 = new ItemStack(Material.DISPENSER);
+		ItemMeta sfc23Meta = sfc23.getItemMeta();
+		sfc23Meta.setDisplayName(ChatColor.GRAY + "Compressor !");
+		List<String> sfc23Lore = new ArrayList<String>();
+		sfc23Lore.add("");
+		sfc23Lore.add(ChatColor.GRAY + "Requis:");
+		sfc23Lore.add(ChatColor.GRAY + "- Construire un Ore Crusher");
+		if (Main.plugin.getConfig().getBoolean("challenges." + player.getName() + ".sfc23", false)) {
+			sfc23Meta.addEnchant(Enchantment.DURABILITY, 10, true);
+			sfc23Lore.add("");
+			sfc23Lore.add(ChatColor.RED + "Tu ne peux pas recommencer ce challenge!");
+		} else {
+			sfc23Lore.add("");
+			sfc23Lore.add(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "Récompenses:");
+			sfc23Lore.add(ChatColor.GOLD + "- 6 SkyCoins");
+		}
+		sfc23Meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		sfc23Meta.setLore(sfc23Lore);
+		sfc23.setItemMeta(sfc23Meta);
+		gui.setItem(3, sfc23);
 
 		return gui;
 	}
