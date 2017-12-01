@@ -89,14 +89,14 @@ public class SCP2 extends AbstractMenu{
 								if (dispenser.getFacing() == BlockFace.UP) {
 									Block blockUp = block.getRelative(BlockFace.UP);
 									if (blockUp.getType() == Material.FENCE) {
-										if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".sfc12", false)) {
+										if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".sfc21", false)) {
 											event.getWhoClicked().sendMessage(ChatColor.RED + "Tu ne peux pas refaire ce challenge!");
 											// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
 										} else {
 
 											int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
 											Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 6);
-											Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".sfc12", true);
+											Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".sfc21", true);
 											Main.plugin.saveConfig();
 											event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Grind Stone ! pour la première fois!");
 											event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 6 SkyCoins!");
@@ -128,19 +128,19 @@ public class SCP2 extends AbstractMenu{
 									Block blockNorth = block.getRelative(BlockFace.NORTH);
 									if (blockUp.getType() == Material.NETHER_FENCE) {
 										if ((blockWest.getType() == Material.IRON_FENCE && blockEast.getType() == Material.IRON_FENCE) || (blockNorth.getType() == Material.IRON_FENCE && blockSouth.getType() == Material.IRON_FENCE)) {
-											if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".sfc12", false)) {
+											if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".sfc22", false)) {
 												event.getWhoClicked().sendMessage(ChatColor.RED + "Tu ne peux pas refaire ce challenge!");
 												// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
-											} 
-										}else {
+											} else {
 
-											int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
-											Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 6);
-											Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".sfc12", true);
-											Main.plugin.saveConfig();
-											event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Grind Stone ! pour la première fois!");
-											event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 6 SkyCoins!");
-											Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Grind Stone ! pour la première fois!");
+												int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
+												Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 6);
+												Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".sfc22", true);
+												Main.plugin.saveConfig();
+												event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Ore Crusher ! pour la première fois!");
+												event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 6 SkyCoins!");
+												Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Ore Crusher ! pour la première fois!");
+											}
 										}
 									}
 								}
