@@ -31,6 +31,7 @@ public class Main extends JavaPlugin implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, this);
 		Bukkit.getPluginManager().registerEvents(new InteractsEvents(), this);
 		new CP1();
+		new CP2();
 		new SCP1();
 		new SCP2();
 		//		ItemStack pumpkinJuice = new ItemStack(Material.POTION, 1, (byte) 8195);
