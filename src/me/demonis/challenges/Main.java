@@ -240,23 +240,37 @@ public class Main extends JavaPlugin implements Listener {
 			event.setCancelled(true);
 
 			if (event.getCurrentItem().getType() == Material.WOOL) {
-				event.getWhoClicked().closeInventory();
-				if (event.getWhoClicked().hasPermission("CP1")) {
-					CP1.instance.open((Player) event.getWhoClicked());
+				if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GRAY + "Débutant")) {
+					event.getWhoClicked().closeInventory();
+					
+					if (event.getWhoClicked().hasPermission("CP1")) {
+						CP1.instance.open((Player) event.getWhoClicked());
+					}
+				}
+			}
+			if (event.getCurrentItem().getType().equals(Material.WOOL)) {
+				if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GRAY + "" + ChatColor.BOLD + "Easy [1/3]")) {
+					event.getWhoClicked().closeInventory();
+
+					if (event.getWhoClicked().hasPermission("CP2")) {
+						CP2.instance.open((Player) event.getWhoClicked());
+					}
 				}
 			}
 			if (event.getCurrentItem().getType() == Material.STAINED_CLAY) {
 				if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GRAY + "Slimefun I")) {
+					event.getWhoClicked().closeInventory();
+					
 					if (event.getWhoClicked().hasPermission("SCP1")) {
-						event.getWhoClicked().closeInventory();
 						SCP1.instance.open((Player) event.getWhoClicked());
 					}
 				}
 			}
 			if (event.getCurrentItem().getType() == Material.STAINED_CLAY) {
 				if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GRAY + "Slimefun II")) {
+					event.getWhoClicked().closeInventory();
+					
 					if (event.getWhoClicked().hasPermission("SCP2")) {
-						event.getWhoClicked().closeInventory();
 						SCP2.instance.open((Player) event.getWhoClicked());
 					}
 				}
