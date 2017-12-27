@@ -20,7 +20,7 @@ public class CP1 extends AbstractMenu{
 	public static CP1 instance;
 
 	public CP1() {
-		super("ChallengePack1", Main.plugin, ChatColor.GRAY + "Challenge", 2);
+		super("ChallengePack1", Main.plugin, ChatColor.GRAY + "Challenge1", 2);
 		instance = this;
 	}
 
@@ -164,130 +164,197 @@ public class CP1 extends AbstractMenu{
 
 	@Override
 	protected boolean onInventoryClick(InventoryClickEvent event) {
-		if (event.getCurrentItem().getType() == Material.COBBLESTONE) {
-			event.getWhoClicked().closeInventory();
-			if (event.getWhoClicked().getInventory().contains(Material.COBBLESTONE, 8)) {
-				int n = 8;
-				for (Entry<Integer, ? extends ItemStack> entry : event.getWhoClicked().getInventory().all(Material.COBBLESTONE).entrySet()) {
-					if (entry.getValue().getAmount() > n) {
-						ItemStack item = entry.getValue();
-						item.setAmount(item.getAmount() - n);
-						event.getWhoClicked().getInventory().setItem(entry.getKey(), item);
-						n = 0;
-					} else {	
-						n -= entry.getValue().getAmount();
-						event.getWhoClicked().getInventory().setItem(entry.getKey(), null);
+		if (event.getInventory().getTitle().equals(ChatColor.GRAY + "Challenge1")) {
+			if (event.getCurrentItem().getType() == Material.COBBLESTONE) {
+				event.getWhoClicked().closeInventory();
+				if (event.getWhoClicked().getInventory().contains(Material.COBBLESTONE, 8)) {
+					int n = 8;
+					for (Entry<Integer, ? extends ItemStack> entry : event.getWhoClicked().getInventory().all(Material.COBBLESTONE).entrySet()) {
+						if (entry.getValue().getAmount() > n) {
+							ItemStack item = entry.getValue();
+							item.setAmount(item.getAmount() - n);
+							event.getWhoClicked().getInventory().setItem(entry.getKey(), item);
+							n = 0;
+						} else {	
+							n -= entry.getValue().getAmount();
+							event.getWhoClicked().getInventory().setItem(entry.getKey(), null);
+						}
+						if (n == 0) {
+							break;
+						}
 					}
-					if (n == 0) {
-						break;
-					}
-				}
-				if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".cobble1", false)) {
-					int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
-					Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 4);
-					Main.plugin.saveConfig();
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Minage Intense!");
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 4 SkyCoins!");
-					// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
-				} else {
-					int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
-					Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 8);
-					Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".cobble1", true);
-					Main.plugin.saveConfig();
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Minage Intensif pour la première fois!");
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 8 SkyCoins!");
-					Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Minage Intensif pour la première fois!");
-					event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS, 2));
-				}
-			}
-		} else if (event.getCurrentItem().getType() == Material.LOG) {
-			event.getWhoClicked().closeInventory();
-			if (event.getWhoClicked().getInventory().contains(Material.LOG, 8)) {
-				int n = 8;
-				for (Entry<Integer, ? extends ItemStack> entry : event.getWhoClicked().getInventory().all(Material.LOG).entrySet()) {
-					if (entry.getValue().getAmount() > n) {
-						ItemStack item = entry.getValue();
-						item.setAmount(item.getAmount() - n);
-						event.getWhoClicked().getInventory().setItem(entry.getKey(), item);
-						n = 0;
+					if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".cobble1", false)) {
+						int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
+						Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 4);
+						Main.plugin.saveConfig();
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Minage Intense!");
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 4 SkyCoins!");
+						// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
 					} else {
-						n -= entry.getValue().getAmount();
-						event.getWhoClicked().getInventory().setItem(entry.getKey(), null);
-					}
-					if (n == 0) {
-						break;
+						int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
+						Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 8);
+						Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".cobble1", true);
+						Main.plugin.saveConfig();
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Minage Intensif pour la première fois!");
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 8 SkyCoins!");
+						Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Minage Intensif pour la première fois!");
+						event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS, 2));
 					}
 				}
-				if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".wood1", false)) {
-					int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
-					Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 2);
-					Main.plugin.saveConfig();
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Bucheron!");
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 2 SkyCoins!");
-					event.getWhoClicked().getInventory().addItem(new ItemStack(Material.SAPLING, 1, (byte) 2));
-					event.getWhoClicked().getInventory().addItem(new ItemStack(Material.SAPLING, 1, (byte) 1));
-					// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
-				} else {
-					int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
-					Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 12);
-					Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".wood1", true);
-					Main.plugin.saveConfig();
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Bois I pour la première fois!");
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 12 SkyCoins!");
-					Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Bois I pour la première fois!");
-					event.getWhoClicked().getInventory().addItem(new ItemStack(Material.SAPLING, 2, (byte) 2));
-					event.getWhoClicked().getInventory().addItem(new ItemStack(Material.SAPLING, 2, (byte) 1));
-				}
-			}
-		} else if (event.getCurrentItem().getType() == Material.WHEAT) {
-			event.getWhoClicked().closeInventory();
-			if (event.getWhoClicked().getInventory().contains(Material.WHEAT, 8)) {
-				int n = 8;
-				for (Entry<Integer, ? extends ItemStack> entry : event.getWhoClicked().getInventory().all(Material.WHEAT).entrySet()) {
-					if (entry.getValue().getAmount() > n) {
-						ItemStack item = entry.getValue();
-						item.setAmount(item.getAmount() - n);
-						event.getWhoClicked().getInventory().setItem(entry.getKey(), item);
-						n = 0;
+			} else if (event.getCurrentItem().getType() == Material.LOG) {
+				event.getWhoClicked().closeInventory();
+				if (event.getWhoClicked().getInventory().contains(Material.LOG, 8)) {
+					int n = 8;
+					for (Entry<Integer, ? extends ItemStack> entry : event.getWhoClicked().getInventory().all(Material.LOG).entrySet()) {
+						if (entry.getValue().getAmount() > n) {
+							ItemStack item = entry.getValue();
+							item.setAmount(item.getAmount() - n);
+							event.getWhoClicked().getInventory().setItem(entry.getKey(), item);
+							n = 0;
+						} else {
+							n -= entry.getValue().getAmount();
+							event.getWhoClicked().getInventory().setItem(entry.getKey(), null);
+						}
+						if (n == 0) {
+							break;
+						}
+					}
+					if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".wood1", false)) {
+						int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
+						Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 2);
+						Main.plugin.saveConfig();
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Bucheron!");
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 2 SkyCoins!");
+						event.getWhoClicked().getInventory().addItem(new ItemStack(Material.SAPLING, 1, (byte) 2));
+						event.getWhoClicked().getInventory().addItem(new ItemStack(Material.SAPLING, 1, (byte) 1));
+						// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
 					} else {
-						n -= entry.getValue().getAmount();
-						event.getWhoClicked().getInventory().setItem(entry.getKey(), null);
-					}
-					if (n == 0) {
-						break;
+						int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
+						Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 12);
+						Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".wood1", true);
+						Main.plugin.saveConfig();
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Bois I pour la première fois!");
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 12 SkyCoins!");
+						Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Bois I pour la première fois!");
+						event.getWhoClicked().getInventory().addItem(new ItemStack(Material.SAPLING, 2, (byte) 2));
+						event.getWhoClicked().getInventory().addItem(new ItemStack(Material.SAPLING, 2, (byte) 1));
 					}
 				}
-				if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".ble1", false)) {
-					int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
-					Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 1);
-					Main.plugin.saveConfig();
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Cultivons pour notre Survie!");
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 1 SkyCoins!");
-					// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
-				} else {
-					int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
-					Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 6);
-					Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".ble1", true);
-					Main.plugin.saveConfig();
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Cultivons pour notre Survie pour la première fois!");
-					event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 6 SkyCoins!");
-					Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Cultivons pour notre Survie pour la première fois!");
-					event.getWhoClicked().getInventory().addItem(new ItemStack(Material.DIRT, 5));
+			} else if (event.getCurrentItem().getType() == Material.WHEAT) {
+				event.getWhoClicked().closeInventory();
+				if (event.getWhoClicked().getInventory().contains(Material.WHEAT, 8)) {
+					int n = 8;
+					for (Entry<Integer, ? extends ItemStack> entry : event.getWhoClicked().getInventory().all(Material.WHEAT).entrySet()) {
+						if (entry.getValue().getAmount() > n) {
+							ItemStack item = entry.getValue();
+							item.setAmount(item.getAmount() - n);
+							event.getWhoClicked().getInventory().setItem(entry.getKey(), item);
+							n = 0;
+						} else {
+							n -= entry.getValue().getAmount();
+							event.getWhoClicked().getInventory().setItem(entry.getKey(), null);
+						}
+						if (n == 0) {
+							break;
+						}
+					}
+					if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".ble1", false)) {
+						int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
+						Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 1);
+						Main.plugin.saveConfig();
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Cultivons pour notre Survie!");
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 1 SkyCoins!");
+						// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
+					} else {
+						int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
+						Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 6);
+						Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".ble1", true);
+						Main.plugin.saveConfig();
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Cultivons pour notre Survie pour la première fois!");
+						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 6 SkyCoins!");
+						Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Cultivons pour notre Survie pour la première fois!");
+						event.getWhoClicked().getInventory().addItem(new ItemStack(Material.DIRT, 5));
+					}
 				}
-			}
-		} else if (event.getCurrentItem().getType() == Material.WOOD_PICKAXE) {
-			event.getWhoClicked().closeInventory();
-			if (event.getWhoClicked().getInventory().contains(Material.WOOD_PICKAXE, 1)) {
-				if (event.getWhoClicked().getInventory().contains(Material.WOOD_AXE, 1)) {
-					if (event.getWhoClicked().getInventory().contains(Material.WOOD_SPADE, 1)) {
-						if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".outils1", false)) {
+			} else if (event.getCurrentItem().getType() == Material.WOOD_PICKAXE) {
+				event.getWhoClicked().closeInventory();
+				if (event.getWhoClicked().getInventory().contains(Material.WOOD_PICKAXE, 1)) {
+					if (event.getWhoClicked().getInventory().contains(Material.WOOD_AXE, 1)) {
+						if (event.getWhoClicked().getInventory().contains(Material.WOOD_SPADE, 1)) {
+							if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".outils1", false)) {
+								event.getWhoClicked().sendMessage(ChatColor.RED + "Tu ne peux pas refaire ce challenge!");
+								// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
+							} else {
+								int n = 1;
+								int o = 1;
+								int p = 1;
+								for (Entry<Integer, ? extends ItemStack> entry : event.getWhoClicked().getInventory().all(Material.WOOD_PICKAXE).entrySet()) {
+									if (entry.getValue().getAmount() > n) {
+										ItemStack item = entry.getValue();
+										item.setAmount(item.getAmount() - n);
+										event.getWhoClicked().getInventory().setItem(entry.getKey(), item);
+										n = 0;
+									} else {
+										n -= entry.getValue().getAmount();
+										event.getWhoClicked().getInventory().setItem(entry.getKey(), null);
+									}
+									if (n == 0) {
+										break;
+									}
+								}
+								for (Entry<Integer, ? extends ItemStack> entry2 : event.getWhoClicked().getInventory().all(Material.WOOD_AXE).entrySet()) {
+									if (entry2.getValue().getAmount() > o) {
+										ItemStack item = entry2.getValue();
+										item.setAmount(item.getAmount() - o);
+										event.getWhoClicked().getInventory().setItem(entry2.getKey(), item);
+										o = 0;
+									} else {
+										n -= entry2.getValue().getAmount();
+										event.getWhoClicked().getInventory().setItem(entry2.getKey(), null);
+									}
+									if (o == 0) {
+										break;
+									}
+								}
+								for (Entry<Integer, ? extends ItemStack> entry3 : event.getWhoClicked().getInventory().all(Material.WOOD_SPADE).entrySet()) {
+									if (entry3.getValue().getAmount() > p) {
+										ItemStack item = entry3.getValue();
+										item.setAmount(item.getAmount() - p);
+										event.getWhoClicked().getInventory().setItem(entry3.getKey(), item);
+										p = 0;
+									} else {
+										p -= entry3.getValue().getAmount();
+										event.getWhoClicked().getInventory().setItem(entry3.getKey(), null);
+									}
+									if (p == 0) {
+										break;
+									}
+								}
+								int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
+								Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 6);
+								Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".outils1", true);
+								Main.plugin.saveConfig();
+								event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Premiers Outils pour la première fois!");
+								event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 6 SkyCoins!");
+								Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Premiers Outils pour la première fois!");
+								event.getWhoClicked().getInventory().addItem(new ItemStack(Material.STONE_PICKAXE, 1));
+								event.getWhoClicked().getInventory().addItem(new ItemStack(Material.STONE_AXE, 1));
+								event.getWhoClicked().getInventory().addItem(new ItemStack(Material.STONE_SPADE, 1));
+							}
+						}
+					}
+				}
+			} else if (event.getCurrentItem().getType() == Material.WORKBENCH) {
+				event.getWhoClicked().closeInventory();
+				if (event.getWhoClicked().getInventory().contains(Material.WORKBENCH, 1)) {
+					if (event.getWhoClicked().getInventory().contains(Material.FURNACE, 1)) {
+						if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".crafts1", false)) {
 							event.getWhoClicked().sendMessage(ChatColor.RED + "Tu ne peux pas refaire ce challenge!");
 							// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
 						} else {
 							int n = 1;
 							int o = 1;
-							int p = 1;
-							for (Entry<Integer, ? extends ItemStack> entry : event.getWhoClicked().getInventory().all(Material.WOOD_PICKAXE).entrySet()) {
+							for (Entry<Integer, ? extends ItemStack> entry : event.getWhoClicked().getInventory().all(Material.WORKBENCH).entrySet()) {
 								if (entry.getValue().getAmount() > n) {
 									ItemStack item = entry.getValue();
 									item.setAmount(item.getAmount() - n);
@@ -301,7 +368,7 @@ public class CP1 extends AbstractMenu{
 									break;
 								}
 							}
-							for (Entry<Integer, ? extends ItemStack> entry2 : event.getWhoClicked().getInventory().all(Material.WOOD_AXE).entrySet()) {
+							for (Entry<Integer, ? extends ItemStack> entry2 : event.getWhoClicked().getInventory().all(Material.FURNACE).entrySet()) {
 								if (entry2.getValue().getAmount() > o) {
 									ItemStack item = entry2.getValue();
 									item.setAmount(item.getAmount() - o);
@@ -315,103 +382,38 @@ public class CP1 extends AbstractMenu{
 									break;
 								}
 							}
-							for (Entry<Integer, ? extends ItemStack> entry3 : event.getWhoClicked().getInventory().all(Material.WOOD_SPADE).entrySet()) {
-								if (entry3.getValue().getAmount() > p) {
-									ItemStack item = entry3.getValue();
-									item.setAmount(item.getAmount() - p);
-									event.getWhoClicked().getInventory().setItem(entry3.getKey(), item);
-									p = 0;
-								} else {
-									p -= entry3.getValue().getAmount();
-									event.getWhoClicked().getInventory().setItem(entry3.getKey(), null);
-								}
-								if (p == 0) {
-									break;
-								}
-							}
 							int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
-							Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 6);
-							Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".outils1", true);
+							Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 4);
+							Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".crafts1", true);
 							Main.plugin.saveConfig();
-							event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Premiers Outils pour la première fois!");
-							event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 6 SkyCoins!");
-							Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Premiers Outils pour la première fois!");
-							event.getWhoClicked().getInventory().addItem(new ItemStack(Material.STONE_PICKAXE, 1));
-							event.getWhoClicked().getInventory().addItem(new ItemStack(Material.STONE_AXE, 1));
-							event.getWhoClicked().getInventory().addItem(new ItemStack(Material.STONE_SPADE, 1));
+							event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Premiers Crafts pour la première fois!");
+							event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 4 SkyCoins!");
+							Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Premiers Crafts pour la première fois!");
+							event.getWhoClicked().getInventory().addItem(new ItemStack(Material.DIRT, 4));
 						}
 					}
 				}
-			}
-		} else if (event.getCurrentItem().getType() == Material.WORKBENCH) {
-			event.getWhoClicked().closeInventory();
-			if (event.getWhoClicked().getInventory().contains(Material.WORKBENCH, 1)) {
-				if (event.getWhoClicked().getInventory().contains(Material.FURNACE, 1)) {
-					if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".crafts1", false)) {
-						event.getWhoClicked().sendMessage(ChatColor.RED + "Tu ne peux pas refaire ce challenge!");
-						// event.getWhoClicked().getInventory().addItem(new ItemStack(Material.GRASS));
-					} else {
-						int n = 1;
-						int o = 1;
-						for (Entry<Integer, ? extends ItemStack> entry : event.getWhoClicked().getInventory().all(Material.WORKBENCH).entrySet()) {
-							if (entry.getValue().getAmount() > n) {
-								ItemStack item = entry.getValue();
-								item.setAmount(item.getAmount() - n);
-								event.getWhoClicked().getInventory().setItem(entry.getKey(), item);
-								n = 0;
-							} else {
-								n -= entry.getValue().getAmount();
-								event.getWhoClicked().getInventory().setItem(entry.getKey(), null);
-							}
-							if (n == 0) {
-								break;
-							}
-						}
-						for (Entry<Integer, ? extends ItemStack> entry2 : event.getWhoClicked().getInventory().all(Material.FURNACE).entrySet()) {
-							if (entry2.getValue().getAmount() > o) {
-								ItemStack item = entry2.getValue();
-								item.setAmount(item.getAmount() - o);
-								event.getWhoClicked().getInventory().setItem(entry2.getKey(), item);
-								o = 0;
-							} else {
-								n -= entry2.getValue().getAmount();
-								event.getWhoClicked().getInventory().setItem(entry2.getKey(), null);
-							}
-							if (o == 0) {
-								break;
-							}
-						}
-						int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
-						Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins + 4);
-						Main.plugin.getConfig().set("challenges." + event.getWhoClicked().getName() + ".crafts1", true);
-						Main.plugin.saveConfig();
-						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de completer le challenge Premiers Crafts pour la première fois!");
-						event.getWhoClicked().sendMessage(ChatColor.GREEN + "Tu viens de gagner 4 SkyCoins!");
-						Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de completer le challenge Premiers Crafts pour la première fois!");
-						event.getWhoClicked().getInventory().addItem(new ItemStack(Material.DIRT, 4));
-					}
-				}
-			}
-		} else if (event.getCurrentItem().getType() == Material.NETHER_STAR) {
-			event.getWhoClicked().closeInventory();
-			if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".crafts1", false)) {
-				if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".cobble1", false)) {
-					if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".wood1", false)) {
-						if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".ble1", false)) {
-							if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".outils1", false)) {
-								if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".crafts1", false)) {
-									if (Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName()) >= 25) {
-										int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
-										Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins - 25);
-										Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de passer Easy I !");
+			} else if (event.getCurrentItem().getType() == Material.NETHER_STAR) {
+				event.getWhoClicked().closeInventory();
+				if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".crafts1", false)) {
+					if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".cobble1", false)) {
+						if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".wood1", false)) {
+							if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".ble1", false)) {
+								if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".outils1", false)) {
+									if (Main.plugin.getConfig().getBoolean("challenges." + event.getWhoClicked().getName() + ".crafts1", false)) {
+										if (Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName()) >= 25) {
+											int skycoins = Main.plugin.getConfig().getInt("SkyCoins." + event.getWhoClicked().getName());
+											Main.plugin.getConfig().set("SkyCoins." + event.getWhoClicked().getName(), skycoins - 25);
+											Bukkit.broadcastMessage(ChatColor.BLUE + event.getWhoClicked().getName() + " vient de passer Easy I !");
+										}
 									}
 								}
 							}
 						}
 					}
+				} else {
+					event.getWhoClicked().sendMessage(ChatColor.RED + "Tu as déjà acheté l'amélioration !");
 				}
-			} else {
-				event.getWhoClicked().sendMessage(ChatColor.RED + "Tu as déjà acheté l'amélioration !");
 			}
 		}
 		return false;
